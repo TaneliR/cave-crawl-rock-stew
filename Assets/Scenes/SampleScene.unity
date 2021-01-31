@@ -474,7 +474,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 100
   height: 70
-  randomFillPercent: 49
+  wallThresholdSize: 74
+  randomFillPercent: 44
   seed: CaveCrawl
   useRandomSeed: 1
 --- !u!4 &1749579129
