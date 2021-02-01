@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.AI;
 
 public class MapGenerator : MonoBehaviour
 {   
+
     // Serialize ints
     [SerializeField]
     private int width, height;
@@ -36,13 +38,9 @@ public class MapGenerator : MonoBehaviour
 
     void Start() {
         GenerateMap();
+        NavMeshBuilder.BuildNavMesh();
     }
 
-    void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            GenerateMap();
-        }
-    }
     void GenerateMap() {
         map = new int[width,height];
         RandomFillMap();
@@ -179,7 +177,8 @@ public class MapGenerator : MonoBehaviour
 
     void CreatePassage(Room roomA, Room roomB, Coord tileA, Coord tileB) {
         Room.ConnectRooms(roomA, roomB);
-        Debug.DrawLine(CoordToWorldPoint(tileA), CoordToWorldPoint(tileB), Color.green, 100);
+        // Used to show where the connections are carved
+        //Debug.DrawLine(CoordToWorldPoint(tileA), CoordToWorldPoint(tileB), Color.green, 100);
 
         List<Coord> line = GetLine(tileA, tileB);
         foreach(Coord c in line) {
