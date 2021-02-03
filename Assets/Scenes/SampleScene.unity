@@ -615,14 +615,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975116232}
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: -0, y: 51.7, z: -16.3}
+  m_LocalRotation: {x: 0.5142898, y: 0, z: 0, w: 0.8576165}
+  m_LocalPosition: {x: -0, y: 68.15, z: -39.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2000795634}
   m_Father: {fileID: 1366598071}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.9, y: 0, z: 0}
 --- !u!81 &975116234
 AudioListener:
   m_ObjectHideFlags: 0
@@ -861,6 +861,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ea8ab1314c4fa449dabd79a2859939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1022775499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1022775501}
+  - component: {fileID: 1022775500}
+  m_Layer: 0
+  m_Name: Tick Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1022775500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022775499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05bfd6ab247f51a4abfe8e3b2df0f424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1022775501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022775499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1027221704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,6 +1204,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   maxDistance: 100
+  tickManager: {fileID: 1022775500}
 --- !u!65 &1366598068
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2203,7 +2247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1910765167
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2275,7 +2319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910765166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 210, z: 0}
+  m_LocalPosition: {x: 0, y: 300, z: 0}
   m_LocalScale: {x: 20, y: 1, z: 14}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2385,7 +2429,7 @@ GameObject:
   - component: {fileID: 2000795637}
   - component: {fileID: 2000795636}
   - component: {fileID: 2000795635}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerCameraViewMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2480,7 +2524,7 @@ GameObject:
   - component: {fileID: 2046062395}
   - component: {fileID: 2046062394}
   m_Layer: 0
-  m_Name: ClickDetector
+  m_Name: Click Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
