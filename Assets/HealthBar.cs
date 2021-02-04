@@ -29,10 +29,10 @@ public class HealthBar : MonoBehaviour
             yield return null;
         }
     }
-
+    
+    // Look at camera
     private void LateUpdate() {
-        transform.LookAt(Camera.main.transform);
-        transform.Rotate(0, 180, 0);
+        transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
         
     
