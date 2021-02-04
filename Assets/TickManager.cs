@@ -17,8 +17,8 @@ public class TickManager : MonoBehaviour
     }
     public void Act(int duration) {
         tick += duration;
-        for(int i = 0; i < duration; i++) {
-            if (OnTick != null) OnTick(this, new OnTickEventArgs{ tick = tick });
-        }
+
+        if (OnTick != null) OnTick(this, new OnTickEventArgs{ tick = tick });
+        
     }
 }

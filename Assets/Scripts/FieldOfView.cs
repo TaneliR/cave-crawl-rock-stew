@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// REMEMBER TO SET THE MATERIALS TO GET THIS WORKING AGAIN!!!!
 public class FieldOfView : MonoBehaviour {
 
 	public float viewRadius;
