@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,15 @@ public class HealthBar : MonoBehaviour
     private Image healthBarImage;
     [SerializeField]
     private float updateSpeedSeconds = 0.5f;
-    void Awake()
-    {
-        GetComponentInParent<Health>().OnHealthPctChanged += HandleHealthChanged;
-    }
+    [SerializeField]
+    private float positionOffset;
 
+    private Health health;
+
+    public void SetHealth(Health health) {
+        this.health = health;
+        health.OnHealthPctChanged += HandleHealthChanged;
+    }
     
     private void HandleHealthChanged(float pct) {
         StartCoroutine(ChangeToPct(pct));
@@ -28,12 +33,16 @@ public class HealthBar : MonoBehaviour
             healthBarImage.fillAmount = Mathf.Lerp(preChangePct, pct, elapsed / updateSpeedSeconds);
             yield return null;
         }
+        healthBarImage.fillAmount = pct;
     }
     
     // Look at camera
     private void LateUpdate() {
-        transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        transform.position = Camera.main.WorldToScreenPoint(health.transform.position +  Vector3.up * positionOffset);
     }
-        
+    
+    private void OnDestroy() {
+        health.OnHealthPctChanged -= HandleHealthChanged;    
+    }
     
 }

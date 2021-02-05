@@ -5,27 +5,35 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    public static event Action<Health> OnHealthAdded = delegate { };
+    public static event Action<Health> OnHealthRemoved = delegate { };
+
     [SerializeField]
     private int maxHealth = 100;
 
-    private int currentHealth;
+    public int CurrentHealth { get; private set; }
 
     public event Action<float> OnHealthPctChanged = delegate { };
 
     private void OnEnable() {
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
+        OnHealthAdded(this);
     }
 
     public void ChangeHealth(int amt) {
-        currentHealth += amt;
+        CurrentHealth += amt;
 
-        float currentHealthPct = (float)currentHealth / (float)maxHealth;
+        float currentHealthPct = (float)CurrentHealth / (float)maxHealth;
         OnHealthPctChanged(currentHealthPct);
     }
 
+    // DEBUG HEALTH
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
             ChangeHealth(-12);
         }
+    }
+    private void OnDisable() {
+        OnHealthRemoved(this);
     }
 }

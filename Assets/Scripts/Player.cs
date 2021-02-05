@@ -5,33 +5,43 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    List<Vector3> wayPoints = new List<Vector3>();
+    // Constants (move to another file?)
+    const int speedConstant = 4;
 
-    public LayerMask clickMask;
-    public float maxDistance = 100f;
-    LineRenderer lineRenderer;
-    public TickManager tickManager;
-    
-    
+    // For gizmos (maybe change later for waypoints?)
     Color[] gizmoColors = {Color.blue, Color.yellow, Color.green, Color.red};
     private List<Vector3> gizmoPositions = new List<Vector3>();
-    private Vector3 nextPosition;
+
+    // NavMesh stuff
+    private Transform target;
     private Vector3 newDestination;
     private NavMeshPath path;
     private NavMeshAgent playerAgent;
+    List<Vector3> wayPoints = new List<Vector3>();
+
+    // Player references
     private Rigidbody playerBody;
-    private float speed = 1f;
+    private Camera playerCamera;
+    public Interactable playerFocus;
+    public LayerMask clickMask;
+    public TickManager tickManager;
+
+    //Properties
+    private float speed = 4f;
     private bool moving = false;
     private bool actionsRunning = false;
     private bool turnEnded = false;
-    const int distanceConstant = 4;
     private int actionsToMake = 0;
     private int currentActionIndex = 0;
+    public float maxDistance = 100f;
+    private float moveLeft;
+
     void Awake() {
+        moveLeft = speed *  speedConstant;
         path = new NavMeshPath();
+        playerCamera = GetComponentInChildren<Camera>();
         playerBody = GetComponent<Rigidbody>();
         playerAgent = GetComponent<NavMeshAgent>();
-        nextPosition = this.gameObject.transform.position;
     }
 
     void Start() {
@@ -51,7 +61,6 @@ public class Player : MonoBehaviour
             // playerAgent.destination = gizmoPositions[currentActionIndex];
             newDestination = gizmoPositions[currentActionIndex];
             currentActionIndex += 1;
-            Debug.Log("Next pos: " + nextPosition);
             actionsToMake--;
             yield return new WaitForSeconds(2f);
         }
@@ -68,6 +77,7 @@ public class Player : MonoBehaviour
             RaycastHit hit;
 
             if (Physics.Raycast (ray, out hit, maxDistance, clickMask)) {
+                RemoveFocus();
                 actionsToMake = 0;
                 currentActionIndex = 0;
                 clickPos = hit.point;
@@ -84,25 +94,76 @@ public class Player : MonoBehaviour
                             // Debug.Log("maxPoint " + maxPoint);
                             gizmoPositions.Add(maxPoint);
                         }
-                        Debug.Log("ITEMS IN POSITION LIST " + gizmoPositions.Count);
-                        
                         turnEnded = true;
                         tickManager.Act(iterations);
+                        // Change the moving logic, its really confusing
+                        moveLeft -= currentLength;
                         currentLength = 0;
-                        Debug.Log(gameObject.transform.position);
-                        Debug.Log(nextPosition);
                     }
-                    
                 }
-            
             }
-            
+        }
+        if (Input.GetMouseButtonDown(1)) {
+            // Ray to the mouse poistion
+            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            // If the ray hits
+            if (Physics.Raycast(ray, out hit, 100)) {
+                Interactable interactable = hit.collider.GetComponent<Interactable>();
+                if (interactable != null) {
+                    SetFocus(interactable);
+                }
+            }
+        }
 
+        if (target != null) {
+            playerAgent.SetDestination(target.position);
+            FaceTarget();
         }
     }
 
+    void SetFocus(Interactable newFocus) {
+        // Do something with the focused Interactable?
+        if (newFocus != playerFocus) {
+            if (playerFocus != null) {
+                playerFocus.OnDefocused();
+            }
+            playerFocus = newFocus;
+            FollowTarget(newFocus);
+        }
+
+        newFocus.OnFocused(transform);
+    }
+
+    void RemoveFocus() {
+        if (playerFocus != null) {
+            playerFocus.OnDefocused();
+        }
+        playerFocus = null;
+        StopFollowingTarget();
+    }
+
+    public void FollowTarget(Interactable newTarget) {
+        playerAgent.stoppingDistance = newTarget.radius * 0.8f;
+        playerAgent.updateRotation = false;
+        target = newTarget.interactionTransform;
+    }
+
+    public void StopFollowingTarget() {
+        playerAgent.stoppingDistance = 0;
+        playerAgent.updateRotation = true;
+        target = null;
+    }
+
+    private void FaceTarget() {
+        Vector3 dir =  (target.position - transform.position).normalized;
+        Quaternion lookRot = Quaternion.LookRotation(new Vector3(dir.x, 0f, dir.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 5f);
+    }
+
     void FixedUpdate() {
-        if (newDestination != transform.position) {
+        // Do something with this, it can't stay here
+        if (newDestination != transform.position && newDestination != null && actionsToMake > 0) {
             float step = speed * 4f * Time.fixedDeltaTime;
             Vector3 targetDirection = newDestination - transform.position;
             transform.position = Vector3.MoveTowards(transform.position, newDestination, step);
@@ -112,7 +173,7 @@ public class Player : MonoBehaviour
     }
 
     float GetMaxDistanceFromSpeed(float speed) {
-        return speed * distanceConstant;
+        return speed * speedConstant;
     }
 
     // void OnDrawGizmos()
