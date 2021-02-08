@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfae59b0048f3fd41af5e24d6687a89d, type: 3}
+  m_Name: IceMagic
+  m_EditorClassIdentifier: 
+  name: IceMagic
+  icon: {fileID: 21300000, guid: eaffc20b940751240bb1cde78f2b8aee, type: 3}
+  isDefaultItem: 0

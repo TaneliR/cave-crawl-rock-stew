@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfae59b0048f3fd41af5e24d6687a89d, type: 3}
-  m_Name: Test Item
+  m_Name: Kantele
   m_EditorClassIdentifier: 
-  name: Shillelagh
-  icon: {fileID: 0}
+  name: Kantele
+  icon: {fileID: 21300000, guid: 8b82f1afae919194cb11bd37d78241c6, type: 3}
   isDefaultItem: 0

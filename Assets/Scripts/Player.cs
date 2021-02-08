@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -68,6 +69,9 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
         if (Input.GetMouseButtonDown(0) && actionsToMake == 0) {
             Vector3 currentPos = this.gameObject.transform.position;
             Vector3 clickPos = -Vector3.one;
