@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfae59b0048f3fd41af5e24d6687a89d, type: 3}
+  m_Script: {fileID: 11500000, guid: dee75545917e68d41b7ace26969dc653, type: 3}
   m_Name: SuperKantele
   m_EditorClassIdentifier: 
-  name: SuperKantele
+  name: Kantele
   icon: {fileID: 21300000, guid: 76fa1eb1289656a439ed0fc1b174ab51, type: 3}
   isDefaultItem: 0
+  equipSlot: 3
+  armorModifier: 0
+  damageModifier: 15
