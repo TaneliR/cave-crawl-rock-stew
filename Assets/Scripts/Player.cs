@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     //Properties
     private float speed = 4f;
     private bool moving = false;
-    private bool actionsRunning = false;
+    public bool actionsRunning = false;
     private bool turnEnded = false;
     private int actionsToMake = 0;
     private int currentActionIndex = 0;

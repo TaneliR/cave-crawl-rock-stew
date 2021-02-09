@@ -4,6 +4,7 @@ public class Interactable : MonoBehaviour
 {
     public float radius = 3f;
     public Transform interactionTransform;
+    public InteractableType interactableType;
 
     private bool isFocus = false;
     private Transform player;
@@ -45,4 +46,19 @@ public class Interactable : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
     }
+
+    private void OnMouseEnter() {
+        HandleCursor.instance.setCursor(interactableType);
+    }
+    private void OnMouseExit() {
+        HandleCursor.instance.setCursor();
+    }
+    private void OnMouseDown() {
+        
+    }
+    private void OnMouseUp() {
+        
+    }
 }
+
+public enum InteractableType { PickUp, Enemy, Stairs, Door, Trap, Switch, Hidden }

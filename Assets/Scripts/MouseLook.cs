@@ -10,15 +10,27 @@ public class MouseLook : MonoBehaviour
     [SerializeField]private float maxHorizontalAngleFromHorizon;
     [SerializeField]private float inputLagPeriod;
 
+    private bool reseting = false;
     private Vector2 velocity;
     private Vector2 rotation;
     private Vector2 lastInputEvent;
+    private Player player;
+    private Vector3 playerForward;
+    private Vector3 cameraForward;
+    public float cameraRotationSpeed;
     private float inputLagTimer;
     [SerializeField]
     private float tiltConstant = 62;
+    [SerializeField]
+    private float cameraThreshold;
 
     private float ClampAngle(float angle, float max) {
         return Mathf.Clamp(angle, -max, max);;
+    }
+
+    private void Awake() {
+        player = GetComponentInParent<Player>();
+        
     }
 
 
@@ -34,25 +46,55 @@ public class MouseLook : MonoBehaviour
         }
         return lastInputEvent;
     }
-    void Start()
-    {
-        
+
+    // Realized I dont need this yet lol
+    bool CameraWithinThreshold() {
+        playerForward = GetComponentInParent<Transform>().forward;
+        cameraForward = gameObject.transform.forward;
+        return true;
+    }
+    
+
+    private IEnumerator ResetCameraAngle(float resetWait) {
+        yield return new WaitForSeconds(resetWait);
+        playerForward = GetComponentInParent<Transform>().forward;
+        cameraForward = gameObject.transform.forward;
+        cameraForward.y =  0;
+        playerForward.y = 0;
+        Quaternion resetRotation = Quaternion.LookRotation(playerForward, Vector3.up);
+        Quaternion cameraRotation = Quaternion.LookRotation(cameraForward, Vector3.up);
+
+        float elapsed = 0;
+        // rotation speed bugged
+        while(elapsed < cameraRotationSpeed) {
+            elapsed += Time.deltaTime;
+            transform.rotation = Quaternion.Slerp(cameraRotation, resetRotation, elapsed / cameraRotationSpeed);
+
+            yield return null;
+        }
+        reseting = false;
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        if (Input.GetMouseButton(1)) {
-            Vector2 wantedVelocity = GetInput() * (sensitivity * 2f);
-            
-            velocity = new Vector2(
-                Mathf.MoveTowards(velocity.x, wantedVelocity.x, acceleration.x * Time.deltaTime),
-                Mathf.MoveTowards(velocity.y, wantedVelocity.y, acceleration.y * Time.deltaTime)
-            );
-            rotation += velocity * Time.deltaTime;
-            rotation.y = ClampAngle(rotation.y, maxVerticalAngleFromHorizon);
+    {   
+        if (!reseting) {
+            if (player.actionsRunning)
+                reseting = true;
+                StartCoroutine("ResetCameraAngle", 1f);
+            if (Input.GetMouseButton(1)) {
+                Vector2 wantedVelocity = GetInput() * (sensitivity * 2f);
+                
+                velocity = new Vector2(
+                    Mathf.MoveTowards(velocity.x, wantedVelocity.x, acceleration.x * Time.deltaTime),
+                    Mathf.MoveTowards(velocity.y, wantedVelocity.y, acceleration.y * Time.deltaTime)
+                );
+                rotation += velocity * Time.deltaTime;
+                rotation.y = ClampAngle(rotation.y, maxVerticalAngleFromHorizon);
 
-            transform.localEulerAngles = new Vector3(rotation.y + tiltConstant, -rotation.x, 0);
+                transform.localEulerAngles = new Vector3(rotation.y + tiltConstant, -rotation.x, 0);
+            }
         }
+        
+        
     }
 }
