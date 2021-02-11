@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     public TickManager tickManager;
 
     //Properties
+    private float playerBaseDamage = 1f;
+    private DamageType baseDamageType = DamageType.Bludgeoning;
+    private List<DamageType> playerDamageTypes;
     private float speed = 4f;
     private bool moving = false;
     public bool actionsRunning = false;
@@ -39,6 +42,10 @@ public class Player : MonoBehaviour
     private float moveLeft;
 
     void Awake() {
+        // MOCK DMG MODIFIERS BASEDMG MOCK ACID MODIFIER
+        playerDamageTypes = new List<DamageType>() {DamageType.Acid};
+        playerDamageTypes.Add(baseDamageType);
+        // ENDMOCK
         moveLeft = speed *  speedConstant;
         path = new NavMeshPath();
         playerCamera = GetComponentInChildren<Camera>();
@@ -142,7 +149,7 @@ public class Player : MonoBehaviour
                     float currentLength = 0;
                     float pathLength = CalculateDistanceFromPath(path);
                     if (pathLength > speed) {
-                        
+                        // TODO ADD FUNCTIONALITY FOR OTHER USE CASES THAN STRAIGHT LINE LOL
                         if  (path.corners.Length == 2) {
                             currentLength += Vector3.Distance(path.corners[0], path.corners[1]);
                             int turnsNeeded = Mathf.CeilToInt(currentLength / speed);
@@ -229,6 +236,11 @@ public class Player : MonoBehaviour
         }
 
         newFocus.OnFocused(transform);
+    }
+
+    public void GetDamage(out List<DamageType> damageTypes, out float baseDamage) {
+        damageTypes = playerDamageTypes;
+        baseDamage = playerBaseDamage;
     }
 
     void RemoveFocus() {

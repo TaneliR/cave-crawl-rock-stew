@@ -1758,7 +1758,7 @@ GameObject:
   - component: {fileID: 1097711098}
   - component: {fileID: 1097711097}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: EnemyDummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1773,12 +1773,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1097711096}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ebcbbfcce08d347828fafec5c49740, type: 3}
+  m_Script: {fileID: 11500000, guid: 07f49971f96f8c34c84b587961965a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 3
   interactionTransform: {fileID: 1097711101}
   interactableType: 1
+  enemy: {fileID: 0}
+  player: {fileID: 1366598069}
+  health: 100
 --- !u!135 &1097711098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2215,6 +2218,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5088087893019309224, guid: e2fe6064a74639246aa4ac753d87472c, type: 3}
   m_PrefabInstance: {fileID: 5088087893802816793}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1366598069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5088087893019309226, guid: e2fe6064a74639246aa4ac753d87472c, type: 3}
+  m_PrefabInstance: {fileID: 5088087893802816793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366598065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014a4df7d0676b04cbacebe011f5357c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1385256467
 PrefabInstance:
   m_ObjectHideFlags: 0
