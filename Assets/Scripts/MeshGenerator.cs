@@ -9,7 +9,7 @@ public class MeshGenerator : MonoBehaviour {
     public SquareGrid squareGrid;
     public MeshFilter walls;
     public MeshFilter cave;
-
+    public Material wallMaterial;
     // Prolly gonna delete this later since going 3D
     public bool is2D;
 
@@ -89,6 +89,13 @@ public class MeshGenerator : MonoBehaviour {
             }
         }
         wallMesh.vertices = wallVertices.ToArray();
+        Vector2[] uv = new Vector2[wallVertices.Count];
+ 
+        for (int i = 0; i < wallVertices.Count; i++)
+        {
+            uv[i] = new Vector2(wallVertices[i].y, wallVertices[i].x);
+        }
+        wallMesh.uv = uv;
         wallMesh.triangles = wallTriangles.ToArray();
         walls.mesh = wallMesh;
 
