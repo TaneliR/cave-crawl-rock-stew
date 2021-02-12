@@ -21,6 +21,7 @@ public class HealthBar : MonoBehaviour
     }
     
     private void HandleHealthChanged(float pct) {
+        Debug.Log("Yay!!!" + pct);
         StartCoroutine(ChangeToPct(pct));
     }
     
@@ -29,6 +30,7 @@ public class HealthBar : MonoBehaviour
         float elapsed = 0f;
 
         while (elapsed < updateSpeedSeconds) {
+            Debug.Log("Yay!!! x2!" + elapsed + "filamooont" + healthBarImage.fillAmount);
             elapsed += Time.deltaTime;
             healthBarImage.fillAmount = Mathf.Lerp(preChangePct, pct, elapsed / updateSpeedSeconds);
             yield return null;

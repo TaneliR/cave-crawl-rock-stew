@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class EnemyNew : Interactable {
 
     private List<Damage> damages;
     private List<DamageType> resistances;
     private List<DamageType> weaknesses;
+    private Health health;
     
-    [SerializeField]
-    private Player player;
-    
-    [SerializeField]
-    private float health = 100f;
     private float enemyDamage;
 
     public override void Interact()
@@ -23,6 +20,7 @@ public class EnemyNew : Interactable {
     }
     
     private void Awake() {
+        health = GetComponent<Health>();
         resistances = new List<DamageType>();
         weaknesses = new List<DamageType>();
     }
@@ -32,6 +30,7 @@ public class EnemyNew : Interactable {
         float damage = CalculateIncomingDamage(damageTypes,baseDamage);
         Debug.Log($"Attacking {transform.name}.");
         Debug.Log($"With {damage} damage.");
+        health.ChangeHealth(-damage);
     }
 
     private float CalculateIncomingDamage(List<DamageType> damageTypes, float baseDamage) {

@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     public TickManager tickManager;
 
     //Properties
-    private float playerBaseDamage = 1f;
+    private float playerBaseDamage = 7f;
     private DamageType baseDamageType = DamageType.Bludgeoning;
     private List<DamageType> playerDamageTypes;
     private float speed = 4f;
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
             FollowTarget(newFocus);
         }
 
-        newFocus.OnFocused(transform);
+        newFocus.OnFocused(this);
     }
 
     public void GetDamage(out List<DamageType> damageTypes, out float baseDamage) {

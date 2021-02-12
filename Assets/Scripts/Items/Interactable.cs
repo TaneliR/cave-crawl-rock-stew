@@ -7,18 +7,17 @@ public class Interactable : MonoBehaviour
     public InteractableType interactableType;
 
     private bool isFocus = false;
-    private Transform player;
+    public Player player;
 
     private bool hasInteracted = false;
 
     public virtual void Interact () {
-        // Overwrite this method
         Debug.Log("Interacting with: " + transform.name);
     }
 
     private void Update() {
         if (isFocus && !hasInteracted) {
-            float distance = Vector3.Distance(player.position, interactionTransform.position);
+            float distance = Vector3.Distance(player.transform.position, interactionTransform.position);
             if (distance <= radius) {
                 Interact();
                 hasInteracted = true;
@@ -26,10 +25,9 @@ public class Interactable : MonoBehaviour
         }
     }
 
-
-    public void OnFocused (Transform playerTransform) {
+    public void OnFocused (Player _player) {
         isFocus = true;
-        player = playerTransform;
+        player = _player;
         hasInteracted = false;
     }
 
@@ -41,7 +39,7 @@ public class Interactable : MonoBehaviour
 
     private void OnDrawGizmosSelected() {
         if (interactionTransform == null) {
-            interactionTransform =  transform;
+            interactionTransform = transform;
         }
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(interactionTransform.position, radius);
@@ -52,12 +50,6 @@ public class Interactable : MonoBehaviour
     }
     private void OnMouseExit() {
         HandleCursor.instance.setCursor();
-    }
-    private void OnMouseDown() {
-        
-    }
-    private void OnMouseUp() {
-        
     }
 }
 
