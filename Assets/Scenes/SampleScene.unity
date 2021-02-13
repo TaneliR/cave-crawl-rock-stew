@@ -1696,6 +1696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1058768078}
+  - component: {fileID: 1058768079}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -1710,14 +1711,37 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058768077}
-  m_LocalRotation: {x: 0.45709798, y: 0, z: 0, w: 0.8894164}
+  m_LocalRotation: {x: 0.46329606, y: 0, z: 0, w: 0.8862036}
   m_LocalPosition: {x: -16, y: 20.29, z: -29.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1573341913}
   m_Father: {fileID: 0}
   m_RootOrder: 19
-  m_LocalEulerAnglesHint: {x: 54.4, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 55.2, y: 0, z: 0}
+--- !u!114 &1058768079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058768077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fe238cbebaad694ab42cbd7f7d875cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  acceleration: {x: 422, y: 422}
+  sensitivity: {x: 100, y: 100}
+  maxVerticalAngleFromHorizon: 5
+  maxHorizontalAngleFromHorizon: 0
+  inputLagPeriod: 0
+  player: {fileID: 1366598069}
+  smoothFollow: 1
+  cameraRotationSpeed: 24
+  tiltConstant: 54
+  cameraThreshold: 0.1
 --- !u!1 &1097711096
 GameObject:
   m_ObjectHideFlags: 0
@@ -2581,7 +2605,6 @@ GameObject:
   - component: {fileID: 1573341912}
   - component: {fileID: 1573341911}
   - component: {fileID: 1573341910}
-  - component: {fileID: 1573341909}
   - component: {fileID: 1573341908}
   - component: {fileID: 1573341907}
   m_Layer: 8
@@ -2636,27 +2659,6 @@ MonoBehaviour:
   outlineShaderMaterial: {fileID: 0}
   renderTexture: {fileID: 0}
   extraRenderTexture: {fileID: 0}
---- !u!114 &1573341909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573341906}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe238cbebaad694ab42cbd7f7d875cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: {x: 1000, y: 1000}
-  sensitivity: {x: 150, y: 150}
-  maxVerticalAngleFromHorizon: 30
-  maxHorizontalAngleFromHorizon: 360
-  inputLagPeriod: 0.1
-  player: {fileID: 1366598069}
-  cameraRotationSpeed: 0
-  tiltConstant: 0
-  cameraThreshold: 0
 --- !u!114 &1573341910
 MonoBehaviour:
   m_ObjectHideFlags: 0
