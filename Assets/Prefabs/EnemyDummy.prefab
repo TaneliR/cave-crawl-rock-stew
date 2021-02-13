@@ -112,7 +112,9 @@ MonoBehaviour:
   radius: 3
   interactionTransform: {fileID: 5553100198634866739}
   interactableType: 1
-  player: {fileID: 0}
+  player: {fileID: 5088087893019309226, guid: e2fe6064a74639246aa4ac753d87472c, type: 3}
+  popup: {fileID: 5317188336759635401, guid: c6ce92f101dd8914d92ce3f61da4c41b, type: 3}
+  parent: {fileID: 4344649631241657462, guid: fd5e69fddac75c94998fce723c54f177, type: 3}
 --- !u!114 &5553100198634866736
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Health))]
 public class EnemyNew : Interactable {
+
+    [SerializeField]
+    private Transform popup;
+    
+    [SerializeField]
+    private Transform parent;
 
     private List<Damage> damages;
     private List<DamageType> resistances;
@@ -19,7 +26,8 @@ public class EnemyNew : Interactable {
         GetHit();
     }
     
-    private void Awake() {
+    private void Start() {
+        parent = GameObject.FindGameObjectWithTag("DamagePopup").transform;
         health = GetComponent<Health>();
         resistances = new List<DamageType>();
         weaknesses = new List<DamageType>();
@@ -31,6 +39,10 @@ public class EnemyNew : Interactable {
         Debug.Log($"Attacking {transform.name}.");
         Debug.Log($"With {damage} damage.");
         health.ChangeHealth(-damage);
+        Transform damagePopup = Instantiate(popup, transform.position, Quaternion.identity);
+        damagePopup.GetComponent<DamagePopup>().Setup(transform, damage);
+        
+        damagePopup.SetParent(parent);
     }
 
     private float CalculateIncomingDamage(List<DamageType> damageTypes, float baseDamage) {
