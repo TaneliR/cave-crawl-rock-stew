@@ -9,12 +9,12 @@ public class MouseLook : MonoBehaviour
     [SerializeField]private float maxVerticalAngleFromHorizon;
     [SerializeField]private float maxHorizontalAngleFromHorizon;
     [SerializeField]private float inputLagPeriod;
+    [SerializeField]private Player player;
 
     private bool reseting = false;
     private Vector2 velocity;
     private Vector2 rotation;
     private Vector2 lastInputEvent;
-    private Player player;
     private Vector3 playerForward;
     private Vector3 cameraForward;
     public float cameraRotationSpeed;
@@ -27,12 +27,6 @@ public class MouseLook : MonoBehaviour
     private float ClampAngle(float angle, float max) {
         return Mathf.Clamp(angle, -max, max);;
     }
-
-    private void Awake() {
-        player = GetComponentInParent<Player>();
-        
-    }
-
 
     private Vector2 GetInput() {
         inputLagTimer += Time.deltaTime;

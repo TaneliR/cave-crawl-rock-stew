@@ -36,13 +36,21 @@ public class EnemyNew : Interactable {
     private void GetHit() {
         player.GetDamage(out List<DamageType> damageTypes, out float baseDamage);
         float damage = CalculateIncomingDamage(damageTypes,baseDamage);
+        bool crit = Random.Range(0,2) > 0;
+        if (crit) {
+            StartCoroutine(Camera.main.GetComponent<CameraShake>().Shake(.15f, .2f));
+            damage *= 2;
+        }
         Debug.Log($"Attacking {transform.name}.");
         Debug.Log($"With {damage} damage.");
         health.ChangeHealth(-damage);
         Transform damagePopup = Instantiate(popup, transform.position, Quaternion.identity);
-        damagePopup.GetComponent<DamagePopup>().Setup(transform, damage);
-        
+        damagePopup.GetComponent<DamagePopup>().Setup(transform, damage, crit);
         damagePopup.SetParent(parent);
+
+        if (health.CurrentHealth <= 0) {
+            Destroy(gameObject);
+        }
     }
 
     private float CalculateIncomingDamage(List<DamageType> damageTypes, float baseDamage) {

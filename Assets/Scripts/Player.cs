@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1)) {
             // Ray to the mouse poistion
-            Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             // If the ray hits
             if (Physics.Raycast(ray, out hit, 100)) {
